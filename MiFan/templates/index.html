@@ -1,22 +1,37 @@
-<!-- index.html -->
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article Index</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
 <body>
-    <h1>Article Index</h1>
-    <div id="article-list">
-        {% for article in articles %}
-            <div class="article">
-                <h2>{{ article.title }}</h2>
-                <p>{{ article.content }}</p>
-            </div>
-        {% endfor %}
+    <header>
+        <h1>Header</h1>
+    </header>
+    <div class="subheader">
+        <h2>Subheader</h2>
     </div>
-    <button id="load-more-btn">Load More</button>
+    <div class="container">
+        <div id="article-list" class="row">
+            {% for article in articles %}
+                <div class="article col-md-3">
+                    <h2>{{ article.title }}</h2>
+                    <p>{{ article.content }}</p>
+                </div>
+                {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                    </div><div class="row hidden">
+                {% endif %}
+            {% endfor %}
+        </div>
+        <button id="load-more-btn">Load More</button>
+    </div>
+    <footer>
+        <p>Footer</p>
+    </footer>
 
     <script>
         document.getElementById('load-more-btn').addEventListener('click', function() {
@@ -26,7 +41,7 @@
                 .then(data => {
                     data.articles.forEach(article => {
                         const articleDiv = document.createElement('div');
-                        articleDiv.className = 'article';
+                        articleDiv.className = 'article col-md-3';
                         articleDiv.innerHTML = `
                             <h2>${article.title}</h2>
                             <p>${article.content}</p>

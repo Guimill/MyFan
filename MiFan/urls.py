@@ -1,5 +1,5 @@
 """
-URL configuration for hello_world project.
+URL configuration for MiFan project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -19,10 +19,10 @@ from django.urls import path, include  # Import include
 from django.conf import settings  # Import settings
 from django.conf.urls.static import static  # Import static
 from django.contrib import admin
-from core import views as core_views  # Assuming your views are in core app
+from MiFan import views as MiFan_views
 
 urlpatterns = [
-    path("", core_views.index),
+    path("", MiFan_views.index),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
@@ -33,5 +33,5 @@ if settings.DEBUG:
 
 # Add the URL for loading more articles
 urlpatterns += [
-    path("load-more/", core_views.load_more_articles, name="load_more_articles"),
+    path("load-more/", MiFan_views.load_more_articles, name="load_more_articles"),
 ]
