@@ -22,17 +22,31 @@
                     <h2>{{ article.title }}</h2>
                     <p>{{ article.content }}</p>
                 </div>
-                {% if forloop.counter|divisibleby:4 and not forloop.last %}
-                    </div><div id="article-list" class="row">
-                {% endif %}
             {% endfor %}
         </div>
-        <form method="GET" action="/load-more/">
-            <button type="submit" id="load-more-btn">Load More</button>
-        </form>
+        <button id="load-more-btn" onclick="loadMoreArticles()">Load More</button>
     </div>
     <footer>
         <p>Footer</p>
     </footer>
+
+    <script>
+        function loadMoreArticles() {
+            var start_index = document.querySelectorAll('.article').length;
+            fetch(`/load-more/?start_index=${start_index}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.articles.forEach(article => {
+                        const articleDiv = document.createElement('div');
+                        articleDiv.className = 'article col-md-3'; // Adjust column size as needed
+                        articleDiv.innerHTML = `
+                            <h2>${article.title}</h2>
+                            <p>${article.content}</p>
+                        `;
+                        document.getElementById('article-list').appendChild(articleDiv);
+                    });
+                });
+        }
+    </script>
 </body>
 </html>
