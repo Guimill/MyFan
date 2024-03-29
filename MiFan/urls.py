@@ -15,18 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.urls import path, include  # Import include
+from django.conf import settings  # Import settings
+from django.conf.urls.static import static  # Import static
 from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-
-from hello_world.core import views as core_views
+from core import views as core_views  # Assuming your views are in core app
 
 urlpatterns = [
     path("", core_views.index),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Add the URL for loading more articles
+urlpatterns += [
+    path("load-more/", core_views.load_more_articles, name="load_more_articles"),
+]

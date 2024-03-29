@@ -1,0 +1,40 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Index</title>
+</head>
+<body>
+    <h1>Article Index</h1>
+    <div id="article-list">
+        {% for article in articles %}
+            <div class="article">
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <button id="load-more-btn">Load More</button>
+
+    <script>
+        document.getElementById('load-more-btn').addEventListener('click', function() {
+            // Fetch more articles using AJAX
+            fetch('/load-more/')
+                .then(response => response.json())
+                .then(data => {
+                    data.articles.forEach(article => {
+                        const articleDiv = document.createElement('div');
+                        articleDiv.className = 'article';
+                        articleDiv.innerHTML = `
+                            <h2>${article.title}</h2>
+                            <p>${article.content}</p>
+                        `;
+                        document.getElementById('article-list').appendChild(articleDiv);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>
