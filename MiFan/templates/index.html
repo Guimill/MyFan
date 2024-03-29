@@ -23,33 +23,16 @@
                     <p>{{ article.content }}</p>
                 </div>
                 {% if forloop.counter|divisibleby:4 and not forloop.last %}
-                    </div><div class="row hidden">
+                    </div><div id="article-list" class="row">
                 {% endif %}
             {% endfor %}
         </div>
-        <button id="load-more-btn">Load More</button>
+        <form method="GET" action="/load-more/">
+            <button type="submit" id="load-more-btn">Load More</button>
+        </form>
     </div>
     <footer>
         <p>Footer</p>
     </footer>
-
-    <script>
-        document.getElementById('load-more-btn').addEventListener('click', function() {
-            // Fetch more articles using AJAX
-            fetch('/load-more/')
-                .then(response => response.json())
-                .then(data => {
-                    data.articles.forEach(article => {
-                        const articleDiv = document.createElement('div');
-                        articleDiv.className = 'article col-md-3';
-                        articleDiv.innerHTML = `
-                            <h2>${article.title}</h2>
-                            <p>${article.content}</p>
-                        `;
-                        document.getElementById('article-list').appendChild(articleDiv);
-                    });
-                });
-        });
-    </script>
 </body>
 </html>

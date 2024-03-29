@@ -3,17 +3,8 @@ from .models import Article
 from django.http import JsonResponse
 
 def index(request):
-    # Check if there are any articles in the database
-    articles_count = Article.objects.count()
-    if articles_count == 3:
-        # If no articles exist, create some initial articles
-        create_initial_articles()
-    
-    # Retrieve the latest 24 articles
-    articles = Article.objects.order_by('-created_at')[:24]
-    print("Total number of articles:", articles_count)  # Add this line for debugging
+    articles = Article.objects.order_by('-created_at')[:12]  # Retrieve latest 12 articles
     return render(request, 'index.html', {'articles': articles})
-
 
 def create_initial_articles():
     # Create some initial articles
@@ -45,11 +36,10 @@ def create_initial_articles():
         Article.objects.create(title=data['title'], content=data['content'])
 
 def load_more_articles(request):
-    start_index = int(request.GET.get('start_index', 24))
-    end_index = start_index + 24  # Load 3 more rows (12 articles)
+    start_index = int(request.GET.get('start_index', 12))
+    end_index = start_index + 12  # Load 12 more articles
     articles = Article.objects.order_by('-created_at')[start_index:end_index]
     data = {
         'articles': [{'title': article.title, 'content': article.content} for article in articles]
     }
-    return JsonResponse(data)
-
+    return render(request, 'index.html', {'articles': articles})
