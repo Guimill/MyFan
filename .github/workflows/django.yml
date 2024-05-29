@@ -33,6 +33,16 @@ jobs:
       run: |
         python manage.py test
 
+    - name: Collect Static Files
+      run: |
+        python manage.py collectstatic --noinput
+
+    - name: Run Migrations
+      run: |
+        python manage.py migrate
+
+    # Add any additional build steps here
+
     # SSH setup, if needed
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
