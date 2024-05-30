@@ -45,10 +45,11 @@ jobs:
         port: ${{ secrets.SERVER_PORT }}
         script: |
           sudo apt-get update
-          cd /root/venv/Myfan/
-          git push origin main
-          source /root/venv/bin/activate
+          cd /root/mifanenv/
+          git clone https://github.com/Guimill/MyFan.git
+          source /root/mifanenv/bin/activate
           pip install -r requirements.txt
+          pip updtade python
           python manage.py makemigrations 
           python manage.py migrate
           python manage.py collectstatic --noinput
