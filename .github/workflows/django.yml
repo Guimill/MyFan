@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.12  # Adjust this to your Python version
+        python-version: '3.12'  # Adjust this to your Python version
 
     - name: Install dependencies
       run: |
@@ -31,14 +31,24 @@ jobs:
       run: |
         python manage.py test  # Adjust this as per your test setup
 
+    - name: Build Django for production
+      run: |
+        python manage.py collectstatic --noinput
+        python manage.py check --deploy
+
     - name: Deploy to Linux server
       uses: appleboy/ssh-action@master
       with:
-        host: 194.164.199.244
-        username: root
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 22
-        
+        port: ${{ secrets.SERVER_PORT }}
         script: |
+          sudo apt-get update
+          sudo apt-get install -y python3.12 python3.12-venv python3.12-dev
           cd /root/MyFan/
-          git pull main origin
+          git pull origin main
+          source /root/venv/bin/activate
+          pip install -r requirements.txt
+          python manage.py migrate
+          python manage.py collectstatic --noinput
