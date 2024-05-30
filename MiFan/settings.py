@@ -29,7 +29,7 @@ SECRET_KEY = 'l0%pf%p=j((8w26=d^+5kp55nltf8(!_%g^%$!6k+ec0)nn+18'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["194.164.199.244"]
+ALLOWED_HOSTS = ["mi-fan.fr","www.mi-fan.fr"]
 
 if 'CODESPACE_NAME' in os.environ:
     codespace_name = os.getenv("CODESPACE_NAME")
