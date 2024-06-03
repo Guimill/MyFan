@@ -48,7 +48,7 @@ jobs:
           cd /home/guimill/mifan/
           git fetch origin main
           git reset --hard origin/main
-          source /root/mifan/bin/activate
+          source /hoem/guimill/mifan/bin/activate
           pip install -r requirements.txt
           python manage.py makemigrations 
           python manage.py migrate
