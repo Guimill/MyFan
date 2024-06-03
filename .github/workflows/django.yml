@@ -46,4 +46,11 @@ jobs:
         script: |
           sudo apt-get update
           cd /home/guimill/mifan/
-          git clone https://github.com/Guimill/MyFan.git
+          git fetch origin main
+          git reset --hard origin/main
+          source /root/mifan/bin/activate
+          pip install -r requirements.txt
+          python manage.py makemigrations 
+          python manage.py migrate
+          python manage.py collectstatic --noinput
+          fuser -k 8000/tcp || true  # Ensure port 8000 is free
