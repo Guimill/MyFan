@@ -45,12 +45,5 @@ jobs:
         port: ${{ secrets.SERVER_PORT }}
         script: |
           sudo apt-get update
-          cd /root/mifanenv/MyFan/
-          git fetch origin main
-          git reset --hard origin/main
-          source /root/mifanenv/bin/activate
-          pip install -r requirements.txt
-          python manage.py makemigrations 
-          python manage.py migrate
-          python manage.py collectstatic --noinput
-          fuser -k 8000/tcp || true  # Ensure port 8000 is free
+          cd /home/guimill/mifan/
+          git clone https://github.com/Guimill/MyFan.git
