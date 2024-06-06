@@ -48,7 +48,7 @@ jobs:
           cd /home/django-apps/MyFan/
           git fetch origin main
           git reset --hard origin/main
-          source /home/django-apps/env/bin/activate
+          source /home/env/bin/activate
           pip install -r requirements.txt
           python manage.py makemigrations 
           python manage.py migrate
