@@ -45,12 +45,11 @@ jobs:
         port: ${{ secrets.SERVER_PORT }}
         script: |
           sudo apt-get update
-          cd /home/guimill/mifan/
+          cd /home/django-apps/MyFan/
           git fetch origin main
           git reset --hard origin/main
-          source /home/guimill/mifan/bin/activate
+          source /home/django-apps/env/bin/activate
           pip install -r requirements.txt
           python manage.py makemigrations 
           python manage.py migrate
           python manage.py collectstatic --noinput
-          fuser -k 8000/tcp || true  # Ensure port 8000 is free
