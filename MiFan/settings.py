@@ -32,7 +32,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['mifan.fr','217.160.0.174','localhost']
+ALLOWED_HOSTS = ['mi-fan.fr','217.160.0.174','localhost']
 
 
 # Application definition
