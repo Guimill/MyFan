@@ -32,7 +32,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['217.160.0.174']
+ALLOWED_HOSTS = ['mifan.fr','217.160.0.174','firstguimillserver']
 
 
 # Application definition
@@ -132,7 +132,7 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "MiFan" / "staticfiles"
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "MiFan" / "media"
